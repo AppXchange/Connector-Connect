@@ -1,0 +1,5 @@
+C:\Users\cforey\Desktop\connector-Connect\Connector\obj\Debug\net8.0\Connector.csproj.AssemblyReference.cache
+C:\Users\cforey\Desktop\connector-Connect\Connector\obj\Debug\net8.0\Connector.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cforey\Desktop\connector-Connect\Connector\obj\Debug\net8.0\Connector.AssemblyInfoInputs.cache
+C:\Users\cforey\Desktop\connector-Connect\Connector\obj\Debug\net8.0\Connector.AssemblyInfo.cs
+C:\Users\cforey\Desktop\connector-Connect\Connector\obj\Debug\net8.0\Connector.csproj.CoreCompileInputs.cache

@@ -1,0 +1,16 @@
+{
+  "name": "Connect",
+  "urlPart": "connect",
+  "key": "",
+  "description": "",
+  "modules": [
+    {
+      "id": "app-1",
+      "name": "App",
+      "urlPart": "app",
+      "key": "",
+      "description": "",
+      "version": 1
+    }
+  ]
+}
