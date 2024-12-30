@@ -3,30 +3,21 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Xchange.Connector.SDK.Action;
 using Xchange.Connector.SDK.CacheWriter;
 using Connector.Client;
-using Connector.App.v1.Files.UploadFile;
-using ESR.Hosting.CacheWriter;
 
 namespace Connector.App.v1.Files.UploadFile
 {
-    public class UploadFileFilesHandler : IActionHandler<UploadFileFilesAction>
+    public class UploadFileFilesHandler(
+        ILogger<UploadFileFilesHandler> logger,
+        ApiClient apiClient) : IActionHandler<UploadFileFilesAction>
     {
-        private readonly ILogger<UploadFileFilesHandler> _logger;
-        private readonly ApiClient _apiClient;
-
-        public UploadFileFilesHandler(
-            ILogger<UploadFileFilesHandler> logger,
-            ApiClient apiClient)
-        {
-            _logger = logger;
-            _apiClient = apiClient;
-        }
+        private readonly ILogger<UploadFileFilesHandler> _logger = logger;
+        private readonly ApiClient _apiClient = apiClient;
 
         public async Task<ActionHandlerOutcome> HandleQueuedActionAsync(ActionInstance actionInstance, CancellationToken cancellationToken)
         {
@@ -36,14 +27,14 @@ namespace Connector.App.v1.Files.UploadFile
                 return ActionHandlerOutcome.Failed(new StandardActionFailure
                 {
                     Code = "400",
-                    Errors = new[]
-                    {
+                    Errors =
+                    [
                         new Xchange.Connector.SDK.Action.Error
                         {
-                            Source = new[] { "UploadFileFilesHandler" },
+                            Source = ["UploadFileFilesHandler"],
                             Text = "Invalid action instance or input JSON."
                         }
-                    }
+                    ]
                 });
             }
 
@@ -54,14 +45,14 @@ namespace Connector.App.v1.Files.UploadFile
                 return ActionHandlerOutcome.Failed(new StandardActionFailure
                 {
                     Code = "400",
-                    Errors = new[]
-                    {
+                    Errors =
+                    [
                         new Xchange.Connector.SDK.Action.Error
                         {
-                            Source = new[] { "UploadFileFilesHandler" },
+                            Source = ["UploadFileFilesHandler"],
                             Text = "Failed to deserialize input JSON."
                         }
-                    }
+                    ]
                 });
             }
 
@@ -90,14 +81,14 @@ namespace Connector.App.v1.Files.UploadFile
                         return ActionHandlerOutcome.Failed(new StandardActionFailure
                         {
                             Code = response.StatusCode.ToString(),
-                            Errors = new[]
-                            {
+                            Errors =
+                            [
                                 new Xchange.Connector.SDK.Action.Error
                                 {
-                                    Source = new[] { "UploadFileFilesHandler" },
+                                    Source = ["UploadFileFilesHandler"],
                                     Text = $"File upload failed with status code: {response.StatusCode}"
                                 }
-                            }
+                            ]
                         });
                     }
 
@@ -107,14 +98,14 @@ namespace Connector.App.v1.Files.UploadFile
                         return ActionHandlerOutcome.Failed(new StandardActionFailure
                         {
                             Code = "500",
-                            Errors = new[]
-                            {
+                            Errors =
+                            [
                                 new Xchange.Connector.SDK.Action.Error
                                 {
-                                    Source = new[] { "UploadFileFilesHandler" },
+                                    Source = ["UploadFileFilesHandler"],
                                     Text = "Failed to retrieve upload details."
                                 }
-                            }
+                            ]
                         });
                     }
 
@@ -124,7 +115,7 @@ namespace Connector.App.v1.Files.UploadFile
 
                     var operations = new List<ESR.Hosting.CacheWriter.SyncOperation>
                     {
-                        new ESR.Hosting.CacheWriter.SyncOperation(OperationType.Upsert.ToString(), uploadDetails.FileId, new Dictionary<string, object>
+                        new(OperationType.Upsert.ToString(), uploadDetails.FileId, new Dictionary<string, object>
                         {
                             { "FileId", uploadDetails.FileId },
                             { "Status", uploadDetails.Status },
@@ -136,8 +127,7 @@ namespace Connector.App.v1.Files.UploadFile
 
                     var cacheSync = new List<CacheSyncCollection>
                     {
-                        new CacheSyncCollection
-                        {
+                        new() {
                             DataObjectType = typeof(UploadFileFilesActionOutput),
                             CacheChanges = operations.ToArray()
                         }
@@ -152,14 +142,14 @@ namespace Connector.App.v1.Files.UploadFile
                 return ActionHandlerOutcome.Failed(new StandardActionFailure
                 {
                     Code = "500",
-                    Errors = new[]
-                    {
+                    Errors =
+                    [
                         new Xchange.Connector.SDK.Action.Error
                         {
-                            Source = new[] { "UploadFileFilesHandler" },
+                            Source = ["UploadFileFilesHandler"],
                             Text = ex.Message
                         }
-                    }
+                    ]
                 });
             }
         }

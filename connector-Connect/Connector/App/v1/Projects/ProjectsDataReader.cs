@@ -11,19 +11,13 @@ using System.Net.Http;
 
 namespace Connector.App.v1.Projects
 {
-    public class ProjectsDataReader : TypedAsyncDataReaderBase<ProjectsDataObject>
+    public class ProjectsDataReader(
+        ILogger<ProjectsDataReader> logger,
+        ApiClient apiClient) : TypedAsyncDataReaderBase<ProjectsDataObject>
     {
-        private readonly ILogger<ProjectsDataReader> _logger;
-        private readonly ApiClient _apiClient;
+        private readonly ILogger<ProjectsDataReader> _logger = logger;
+        private readonly ApiClient _apiClient = apiClient;
         private int _currentPage = 0;
-
-        public ProjectsDataReader(
-            ILogger<ProjectsDataReader> logger,
-            ApiClient apiClient)  // Inject ApiClient here
-        {
-            _logger = logger;
-            _apiClient = apiClient;
-        }
 
         public override async IAsyncEnumerable<ProjectsDataObject> GetTypedDataAsync(DataObjectCacheWriteArguments? dataObjectRunArguments, [EnumeratorCancellation] CancellationToken cancellationToken)
         {

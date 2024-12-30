@@ -62,9 +62,12 @@ public class CreateFoldersActionInput
 
     [JsonPropertyName("tags")]
     public List<Tag> Tags { get; set; } = new();
-    public object? UploadId { get; internal set; }
 
+    [JsonPropertyName("uploadId")]
+    [Description("The unique identifier for the folder upload.")]
+    public string? UploadId { get; set; } // Add this property here
 }
+
 
 public class CreateFoldersActionOutput
 {

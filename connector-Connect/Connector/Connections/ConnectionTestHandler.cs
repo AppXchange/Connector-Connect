@@ -6,16 +6,10 @@ using Xchange.Connector.SDK.Client.Testing;
 
 namespace Connector.Connections
 {
-    public class ConnectionTestHandler : IConnectionTestHandler
+    public class ConnectionTestHandler(ILogger<IConnectionTestHandler> logger, ApiClient apiClient) : IConnectionTestHandler
     {
-        private readonly ILogger<IConnectionTestHandler> _logger;
-        private readonly ApiClient _apiClient;
-
-        public ConnectionTestHandler(ILogger<IConnectionTestHandler> logger, ApiClient apiClient)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
-        }
+        private readonly ILogger<IConnectionTestHandler> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly ApiClient _apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
         public async Task<TestConnectionResult> TestConnection()
         {

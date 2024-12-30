@@ -170,18 +170,11 @@ public enum OperationType
     Update
 }
 
-public class SyncOperation
+public class SyncOperation(OperationType operationType, string objectId, Dictionary<string, object> fields)
 {
-    public OperationType OperationType { get; set; }
-    public string ObjectId { get; set; }
-    public Dictionary<string, object> Fields { get; set; }
-
-    public SyncOperation(OperationType operationType, string objectId, Dictionary<string, object> fields)
-    {
-        OperationType = operationType;
-        ObjectId = objectId;
-        Fields = fields;
-    }
+    public OperationType OperationType { get; set; } = operationType;
+    public string ObjectId { get; set; } = objectId;
+    public Dictionary<string, object> Fields { get; set; } = fields;
 }
 
 public class SourceFileUpload

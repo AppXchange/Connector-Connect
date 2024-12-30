@@ -1,7 +1,4 @@
 namespace Connector.App.v1;
-using Connector.App.v1.Files.CompleteUpload;
-using Connector.App.v1.Files.UploadFile;
-using Connector.App.v1.Folders.Create;
 using Json.Schema.Generation;
 using Xchange.Connector.SDK.Action;
 

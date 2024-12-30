@@ -1,6 +1,4 @@
 namespace Connector.App.v1;
-using Connector.App.v1.Files;
-using Connector.App.v1.Projects;
 using ESR.Hosting.CacheWriter;
 using Json.Schema.Generation;
 

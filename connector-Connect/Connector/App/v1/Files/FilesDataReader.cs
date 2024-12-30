@@ -14,19 +14,14 @@ namespace Connector.App.v1.Files
     /// <summary>
     /// Reads file data objects from an API and streams them for caching.
     /// </summary>
-    public class FilesDataReader : TypedAsyncDataReaderBase<FilesDataObject>
+    public class FilesDataReader(
+        ILogger<FilesDataReader> logger,
+        ApiClient apiClient) : TypedAsyncDataReaderBase<FilesDataObject>
     {
-        private readonly ILogger<FilesDataReader> _logger;
-        private readonly ApiClient _apiClient; // Use ApiClient directly.
+        private readonly ILogger<FilesDataReader> _logger = logger;
+        private readonly ApiClient _apiClient = apiClient; // Use ApiClient directly.
         private int _currentPage = 0;
 
-        public FilesDataReader(
-            ILogger<FilesDataReader> logger,
-            ApiClient apiClient)
-        {
-            _logger = logger;
-            _apiClient = apiClient;
-        }
 
         /// <summary>
         /// Retrieves and streams file data objects asynchronously.
